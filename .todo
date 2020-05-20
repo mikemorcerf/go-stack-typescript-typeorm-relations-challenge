@@ -1,11 +1,3 @@
-table: products
-id: string // uuid
-name: string // unique
-price: decimal // precision // scale
-quantity: number // current stock
-created_at: Date
-updated_at: Date
-
 table: orders
 id: string // uuid
 customer_id: // foreign key to customers' id
@@ -23,3 +15,5 @@ updated_at: Date
 
 //Array of products have: product_id, quantity
 
+//CREATE RELATION product->orders_products
+//CREATE RELATION order->orders_products
