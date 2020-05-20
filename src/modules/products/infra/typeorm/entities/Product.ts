@@ -24,7 +24,7 @@ class Product {
   @Column()
   quantity: number;
 
-  @OneToMany(type => OrdersProducts, order_product => order_product.product, {
+  @OneToMany(_type => OrdersProducts, order_product => order_product.product, {
     cascade: true,
   })
   @JoinTable()

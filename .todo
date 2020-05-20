@@ -1,9 +1,3 @@
-table: orders
-id: string // uuid
-customer_id: // foreign key to customers' id
-created_at: Date
-updated_at: Date
-
 table: orders_products
 id: string //uuid
 order_id: // foreign key to orders' id
