@@ -12,12 +12,15 @@ import {
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 
+import { Exclude } from 'class-transformer';
+
 @Entity('orders')
 class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('uuid')
+  @Exclude()
   customer_id: string;
 
   @OneToOne(() => Customer)
