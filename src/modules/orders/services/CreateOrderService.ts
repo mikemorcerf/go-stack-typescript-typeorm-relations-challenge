@@ -43,13 +43,36 @@ class CreateProductService {
       throw new AppError('User not found');
     }
 
-    const updatedProducts = await this.productsRepository.updateQuantity(
+    const numberOfProductsInOrder = products.length;
+    const currentProductsQuantity = await this.productsRepository.findAllById(
       products,
+    );
+    const numberOfProductsFoundInDatabase = currentProductsQuantity.length;
+    if (numberOfProductsInOrder !== numberOfProductsFoundInDatabase) {
+      throw new AppError('Some products ordered do not exist in stock');
+    }
+
+    let updateProductsQuantity: IProduct[] = [];
+    updateProductsQuantity = currentProductsQuantity.map((product, index) => {
+      const { id, quantity } = product;
+      const newQuantity = quantity - products[index].quantity;
+      if (newQuantity < 0) {
+        throw new AppError(`Insufficient quantity for product ${product.name}`);
+      }
+      return {
+        id,
+        quantity: newQuantity,
+      };
+    });
+
+    const updatedProducts = await this.productsRepository.updateQuantity(
+      updateProductsQuantity,
     );
 
     let productListForOrder: IProductForOrder[] = [];
-    productListForOrder = updatedProducts.map(product => {
-      const { id, price, quantity } = product;
+    productListForOrder = updatedProducts.map((product, index) => {
+      const { id, price } = product;
+      const { quantity } = products[index];
       return {
         product_id: id,
         price,

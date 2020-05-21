@@ -63,7 +63,7 @@ class ProductsRepository implements IProductsRepository {
     });
 
     for (let i = 0; i < products.length; i += 1) {
-      productsFound[i].quantity -= products[i].quantity;
+      productsFound[i].quantity = products[i].quantity;
     }
 
     await this.ormRepository.save(productsFound);
