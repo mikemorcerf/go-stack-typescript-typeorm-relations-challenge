@@ -6,9 +6,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
+
 @Entity('customers')
 class Customer {
   @PrimaryGeneratedColumn('uuid')
+  @Exclude()
   id: string;
 
   @Column()

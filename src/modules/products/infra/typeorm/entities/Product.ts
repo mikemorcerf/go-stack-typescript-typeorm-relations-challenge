@@ -7,11 +7,14 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
+
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 
 @Entity('products')
 class Product {
   @PrimaryGeneratedColumn('uuid')
+  @Exclude()
   id: string;
 
   @Column()
